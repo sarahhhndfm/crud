@@ -16,7 +16,7 @@ public class JendelaUtama extends javax.swing.JFrame {
         try {
             javax.swing.UIManager.setLookAndFeel(lookAndFeel);
         } catch (Exception e) {
-            
+            JOptionPane.showMessageDialog(this, "Unable to set Look and Feel", "Error", JOptionPane.ERROR_MESSAGE);
         }
         initComponents();
             loadData();
@@ -51,9 +51,11 @@ public class JendelaUtama extends javax.swing.JFrame {
             txtAlamat.setText(m.getAlamat());
             txtTelp.setText(m.getTelp());
             txtAsalSekolah.setText(m.getAsalSekolah());
-
         } else {
-            currentRow = 0;
+            clearFields();
+        }
+    }
+    private void clearFields() {
             txtNoBP.setText("");
             txtNama.setText("");
             txtTempatLahir.setText("");
@@ -61,8 +63,6 @@ public class JendelaUtama extends javax.swing.JFrame {
             txtAlamat.setText("");
             txtTelp.setText("");
             txtAsalSekolah.setText("");
-           
-        }
     }
    
     @SuppressWarnings("unchecked")
@@ -113,17 +113,17 @@ public class JendelaUtama extends javax.swing.JFrame {
 
         jLabel7.setText("AsalSekolah");
 
-        txtNoBP.setText("jTextField1");
+        txtNama.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtNamaActionPerformed(evt);
+            }
+        });
 
-        txtNama.setText("jTextField2");
-
-        txtTempatLahir.setText("jTextField3");
-
-        txtTanggalLahir.setText("jTextField4");
-
-        txtTelp.setText("jTextField5");
-
-        txtAsalSekolah.setText("jTextField6");
+        txtTanggalLahir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtTanggalLahirActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -138,7 +138,7 @@ public class JendelaUtama extends javax.swing.JFrame {
                     .addComponent(jLabel3)
                     .addComponent(jLabel6)
                     .addComponent(jLabel7))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 46, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 58, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addGroup(jPanel1Layout.createSequentialGroup()
@@ -236,56 +236,42 @@ public class JendelaUtama extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnPrev)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnNext)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnNew)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnEdit)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnDelete)))
+                .addComponent(btnPrev)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnNext)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 270, Short.MAX_VALUE)
+                .addComponent(btnNew)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnEdit)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnDelete)
                 .addContainerGap())
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(36, 36, 36)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnPrev)
                     .addComponent(btnNext)
                     .addComponent(btnNew)
                     .addComponent(btnEdit)
                     .addComponent(btnDelete))
-                .addContainerGap(8, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnNewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNewActionPerformed
-        if(btnNew.getText().equals("New")) {
-            txtNoBP.setText("");
-            txtNama.setText("");
-            txtTempatLahir.setText("");
-            txtTanggalLahir.setText("");
-            txtAlamat.setText("");
-            txtTelp.setText("");
-            txtAsalSekolah.setText("");
-            txtNoBP.setEditable(true);
-            txtNama.setEditable(true);
-            txtTempatLahir.setEditable(true);
-            txtTanggalLahir.setEditable(true);
-            txtAlamat.setEditable(true);
-            txtTelp.setEditable(true);
-            txtAsalSekolah.setEditable(true);
-            btnNew.setText("Baru");
-            btnDelete.setText("Delete");
+        if(btnNew.getText().equals("Baru")) {
+            clearFields();
+            setFieldsEditable(true);
+            btnNew.setText("Simpan");
+            btnDelete.setText("Batal");
             btnEdit.setEnabled(false);
             btnNext.setEnabled(false);
             btnPrev.setEnabled(false);
@@ -308,13 +294,6 @@ public class JendelaUtama extends javax.swing.JFrame {
                 } else {
                     JOptionPane.showMessageDialog(this, "Data Gagal Disimpan","Informasi", JOptionPane.INFORMATION_MESSAGE);
                 }
-                txtNoBP.setEditable(false);
-                txtNama.setEditable(false);
-                txtTempatLahir.setEditable(false);
-                txtTanggalLahir.setEditable(false);
-                txtAlamat.setEditable(false);
-                txtTelp.setEditable(false);
-                txtAsalSekolah.setEditable(false);
                 btnNew.setText("Baru");
                 btnDelete.setText("Hapus");
                 btnEdit.setEnabled(true);
@@ -329,24 +308,11 @@ public class JendelaUtama extends javax.swing.JFrame {
 
     private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
         if (btnEdit.getText().equals("Edit")) {
-            txtNoBP.setText("");
-            txtNama.setText("");
-            txtTempatLahir.setText("");
-            txtTanggalLahir.setText("");
-            txtAlamat.setText("");
-            txtTelp.setText("");
-            txtAsalSekolah.setText("");
-            txtNoBP.setEditable(true);
-            txtNama.setEditable(true);
-            txtTempatLahir.setEditable(true);
-            txtTanggalLahir.setEditable(true);
-            txtAlamat.setEditable(true);
-            txtTelp.setEditable(true);
-            txtAsalSekolah.setEditable(true);
+            setFieldsEditable(true);
             txtNoBP.requestFocus();
             btnNew.setText("Simpan");
             btnDelete.setText("Batal");
-            btnEdit.setEnabled(false);
+            btnEdit.setText("Ubah");
             btnPrev.setEnabled(false);
             btnNext.setEnabled(false);
         } else {
@@ -366,15 +332,10 @@ public class JendelaUtama extends javax.swing.JFrame {
             } else {
                 JOptionPane.showMessageDialog(this, "Data Gagal Disimpan","Informasi", JOptionPane.INFORMATION_MESSAGE);
             }
-            txtNoBP.setEditable(false);
-            txtNama.setEditable(false);
-            txtTempatLahir.setEditable(false);
-            txtTanggalLahir.setEditable(false);
-            txtAlamat.setEditable(false);
-            txtTelp.setEditable(false);
-            txtAsalSekolah.setEditable(false);
+            setFieldsEditable(false);
             btnNew.setText("Baru");
             btnDelete.setText("Hapus");
+            btnEdit.setText("Edit");            
             btnPrev.setEnabled(true);
             btnNext.setEnabled(true);
         }
@@ -396,23 +357,17 @@ public class JendelaUtama extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(this, "Data Gagal Dihapus","Informasi", JOptionPane.INFORMATION_MESSAGE);
                 }
             }
-        } else if (btnDelete.getText().equals("Hapus")) {
+        } else if (btnDelete.getText().equals("Batal")) {
             loadData();
             binData();
-            btnNew.setText("Simpan");
+            setFieldsEditable(false);
+            btnNew.setText("Baru");
             btnEdit.setText("Edit");
             btnDelete.setText("Hapus");
             btnEdit.setEnabled(true);
             btnNew.setEnabled(true);
             btnPrev.setEnabled(true);
             btnNext.setEnabled(true);
-            txtNoBP.setEditable(false);
-            txtNama.setEditable(false);
-            txtTempatLahir.setEditable(false);
-            txtTanggalLahir.setEditable(false);
-            txtAlamat.setEditable(false);
-            txtTelp.setEditable(false);
-            txtAsalSekolah.setEditable(false);
         }
     }//GEN-LAST:event_btnDeleteActionPerformed
     private void tbDataMouseClicked(MouseEvent evt) {//GEN-FIRST:event_tbDataMouseClicked
@@ -420,8 +375,8 @@ public class JendelaUtama extends javax.swing.JFrame {
     }//GEN-LAST:event_tbDataMouseClicked
 
     private void btnPrevActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrevActionPerformed
-        if (currentRow < mahasiswa.size()-1) {
-            ++currentRow;
+        if (currentRow > 0) {
+            --currentRow;
             btnNext.setEnabled(true);
         }else {
             btnPrev.setEnabled(false);
@@ -431,7 +386,7 @@ public class JendelaUtama extends javax.swing.JFrame {
 
     private void btnNextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNextActionPerformed
         if (currentRow < mahasiswa.size()-1){
-            --currentRow;
+            ++currentRow;
             btnPrev.setEnabled(true);
         } else{
             btnNext.setEnabled(false);
@@ -439,7 +394,23 @@ public class JendelaUtama extends javax.swing.JFrame {
         binData();
     }//GEN-LAST:event_btnNextActionPerformed
 
+    private void txtNamaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNamaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNamaActionPerformed
 
+    private void txtTanggalLahirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTanggalLahirActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtTanggalLahirActionPerformed
+
+    private void setFieldsEditable(boolean editable) {
+        txtNoBP.setEditable(editable);
+        txtNama.setEditable(editable);
+        txtTempatLahir.setEditable(editable);
+        txtTanggalLahir.setEditable(editable);
+        txtAlamat.setEditable(editable);
+        txtTelp.setEditable(editable);
+        txtAsalSekolah.setEditable(editable);        
+    }
 
 public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -496,4 +467,6 @@ public static void main(String args[]) {
     private javax.swing.JTextField txtTelp;
     private javax.swing.JTextField txtTempatLahir;
     // End of variables declaration//GEN-END:variables
+
+
 }
